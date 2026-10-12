@@ -1,0 +1,13 @@
+{
+  "name": "NEGM MEMORIES",
+  "short_name": "NEGM Memories",
+  "description": "حكايتك، وذكرياتك، وحياتك",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./#home",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080c13",
+  "theme_color": "#0b1019",
+  "icons": [{"src":"./assets/logo.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

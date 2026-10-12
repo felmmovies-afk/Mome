@@ -1,0 +1,40 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "profiles": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || data.child('visibility').val() === 'public')",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "usernames": {
+      "$username": {
+        ".read": true,
+        ".write": "auth != null && ((!data.exists() && newData.val() === auth.uid) || data.val() === auth.uid || !newData.exists() && data.val() === auth.uid)"
+      }
+    },
+    "memories": {
+      "$memoryId": {
+        ".read": "auth != null && (data.child('ownerUid').val() === auth.uid || data.child('privacy').val() === 'public')",
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || data.child('ownerUid').val() === auth.uid)"
+      }
+    },
+    "likes": {
+      "$memoryId": {
+        "$uid": {
+          ".read": "auth != null",
+          ".write": "auth != null && auth.uid === $uid"
+        }
+      }
+    },
+    "comments": {
+      "$memoryId": {
+        "$commentId": {
+          ".read": "auth != null",
+          ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || data.child('uid').val() === auth.uid)"
+        }
+      }
+    }
+  }
+}
