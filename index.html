@@ -26,13 +26,13 @@
       <div><strong>NEGM MEMORIES</strong><span>حكايتك، وذكرياتك، وحياتك</span></div>
     </a>
     <nav class="nav" id="desktopNav">
-      <button data-view="home" class="active">الرئيسية</button>
-      <button data-view="explore">استكشف</button>
-      <button data-view="book">كتاب ذكرياتي</button>
-      <button data-view="profile">ملفي الشخصي</button>
-      <button data-view="settings">الإعدادات</button>
+      <button data-view="home" class="active" onclick="switchTab('home')">الرئيسية</button>
+      <button data-view="explore" onclick="switchTab('explore')">استكشف</button>
+      <button data-view="book" onclick="switchTab('book')">كتاب ذكرياتي</button>
+      <button data-view="profile" onclick="switchTab('profile')">ملفي الشخصي</button>
+      <button data-view="settings" onclick="switchTab('settings')">الإعدادات</button>
     </nav>
-    <button class="btn smallbtn" id="topAuth">دخول Google</button>
+    <button class="btn smallbtn" id="topAuth" onclick="switchTab('auth')">دخول Google</button>
   </div>
 </header>
 
@@ -44,8 +44,8 @@
         <h1>حياتك حكاية…<br><em>اكتبها صفحةً صفحة.</em></h1>
         <p>احتفظ باللحظات التي لا تريد نسيانها. اكتب قصتك، أضف صورك وتسجيلاتك، وارجع لأي يوم من حياتك في كتابك الرقمي الخاص.</p>
         <div class="heroactions">
-          <button class="btn" id="heroStart">ابدأ كتابك الآن</button>
-          <button class="btn secondary" id="heroExplore">اكتشف الذكريات العامة</button>
+          <button class="btn" onclick="switchTab('auth')">ابدأ كتابك الآن</button>
+          <button class="btn secondary" onclick="switchTab('explore')">اكتشف الذكريات العامة</button>
         </div>
         <p class="small">خصوصيتك أولًا — كل ذكرى جديدة تكون خاصة افتراضيًا.</p>
       </div>
@@ -71,8 +71,8 @@
       </div>
     </div>
     <div class="section">
-      <div class="sectionhead"><div><h2>أحدث الذكريات العامة</h2><p>المنشورات العامة فقط، بدون محتوى تجريبي.</p></div><button class="btn secondary smallbtn" id="seeExplore">عرض الكل</button></div>
-      <div id="homePublic" class="memorylist"><div class="empty"><div class="loading"></div><p>جارٍ تحميل الذكريات العامة…</p></div></div>
+      <div class="sectionhead"><div><h2>أحدث الذكريات العامة</h2><p>المنشورات العامة فقط، بدون محتوى تجريبي.</p></div><button class="btn secondary smallbtn" onclick="switchTab('explore')">عرض الكل</button></div>
+      <div id="homePublic" class="memorylist"><div class="empty"><p>لا توجد ذكريات عامة حالياً.</p></div></div>
     </div>
   </section>
 
@@ -82,21 +82,20 @@
       <h2>أهلًا بك في <span class="gold">NEGM MEMORIES</span></h2>
       <p class="muted">ادخل بحساب Google وابدأ في كتابة كتابك الشخصي.</p>
       <button class="googlebtn" id="googleLogin"><svg class="googlemark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.01 13.22l7.98 6.19C11.88 13.72 17.42 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.73 7.18l7.65 5.93c4.47-4.13 7.12-10.2 7.12-17.58z"/><path fill="#FBBC05" d="M9.99 28.59A14.4 14.4 0 0 1 9.22 24c0-1.59.27-3.13.76-4.59L2.01 13.22A23.9 23.9 0 0 0 0 24c0 3.87.93 7.52 2.58 10.78l7.41-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.91-5.87l-7.65-5.93c-2.12 1.42-4.83 2.27-8.26 2.27-6.58 0-12.12-4.22-14.01-10.09l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>المتابعة باستخدام Google</button>
-      <p class="small muted">عند أول دخول، سيُنشأ ملفك الشخصي بعد إكمال البيانات المطلوبة. لن تُنشر ذكرياتك دون اختيارك.</p>
-      <div class="actions" style="justify-content:center"><button class="btn ghost" id="authBack">العودة للرئيسية</button></div>
+      <p class="small muted">عند أول دخول، سيُنشأ ملفك الشخصي بعد إكمال البيانات المطلوبة.</p>
+      <div class="actions" style="justify-content:center"><button class="btn ghost" onclick="switchTab('home')">العودة للرئيسية</button></div>
     </div>
   </section>
 
   <section id="view-setup" class="wrap hidden appmain">
-    <div class="sectionhead"><div><h2>جهّز كتابك الشخصي</h2><p>اختَر اسمك واسم المستخدم. تاريخ الميلاد اختياري وخاص افتراضيًا.</p></div></div>
+    <div class="sectionhead"><div><h2>جهّز كتابك الشخصي</h2><p>اختَر اسمك واسم المستخدم.</p></div></div>
     <form id="setupForm" class="panel">
       <div class="formgrid">
         <div class="field"><label for="setupName">الاسم الظاهر *</label><input id="setupName" maxlength="60" required placeholder="اسمك الذي سيظهر للآخرين"></div>
-        <div class="field"><label for="setupUsername">اسم المستخدم *</label><input id="setupUsername" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" required placeholder="negm_ahmed" dir="ltr"><span class="small muted">حروف إنجليزية وأرقام وشرطة سفلية فقط.</span></div>
-        <div class="field"><label for="setupBirthday">تاريخ الميلاد (اختياري)</label><input id="setupBirthday" type="date"></div>
+        <div class="field"><label for="setupUsername">اسم المستخدم *</label><input id="setupUsername" minlength="3" maxlength="24" required placeholder="negm_ahmed" dir="ltr"></div>
+        <div class="field"><label for="setupBirthday">تاريخ الميلاد</label><input id="setupBirthday" type="date"></div>
         <div class="field"><label for="setupVisibility">نوع الحساب</label><select id="setupVisibility"><option value="private">خاص</option><option value="public">عام</option></select></div>
-        <div class="field full"><label for="setupBio">نبذة شخصية (اختياري)</label><textarea id="setupBio" maxlength="240" rows="3" placeholder="اكتب نبذة قصيرة عنك"></textarea></div>
-        <label class="checkrow field full"><input id="setupComments" type="checkbox" checked> السماح بالتعليقات على ذكرياتي العامة</label>
+        <div class="field full"><label for="setupBio">نبذة شخصية</label><textarea id="setupBio" maxlength="240" rows="3" placeholder="اكتب نبذة قصيرة عنك"></textarea></div>
       </div>
       <div class="actions"><button class="btn" type="submit">حفظ الملف الشخصي</button></div>
     </form>
@@ -104,216 +103,100 @@
 
   <section id="view-dashboard" class="wrap hidden appmain">
     <div class="dashhead">
-      <div class="userhello"><img class="avatar" id="dashAvatar" src="./assets/logo.svg" alt="صورتك"><div><div class="muted small">مرحبًا بعودتك</div><h2 id="dashName" style="margin:0">كتابك ينتظرك</h2><div id="dashHandle" class="muted small"></div></div></div>
-      <button class="btn" id="newMemoryTop">＋ اكتب ذكرى جديدة</button>
-    </div>
-    <div class="stats">
-      <div class="stat"><b id="statMemories">—</b><span>ذكرى محفوظة</span></div>
-      <div class="stat"><b id="statPhotos">—</b><span>صورة مرفقة</span></div>
-      <div class="stat"><b id="statAudio">—</b><span>تسجيل صوتي</span></div>
+      <div class="userhello"><img class="avatar" id="dashAvatar" src="./assets/logo.svg" alt="صورتك"><div><div class="muted small">مرحبًا بعودتك</div><h2 id="dashName" style="margin:0">كتابك ينتظرك</h2></div></div>
     </div>
     <div class="panel">
-      <div class="sectionhead"><div><h2>آخر صفحات كتابك</h2><p>ذكرياتك الخاصة والعامة، لا يراها غيرك إلا إذا نشرتها.</p></div><button class="btn secondary smallbtn" id="openBook">فتح الكتاب</button></div>
-      <div id="myRecent" class="memorylist"><div class="empty">جارٍ تحميل ذكرياتك…</div></div>
-    </div>
-    <div class="panel">
-      <div class="sectionhead"><div><h2>اكتب لحظة جديدة</h2><p>تقدر تحفظ النص والصورة أو التسجيل الصوتي في ذكرى واحدة.</p></div></div>
+      <div class="sectionhead"><div><h2>اكتب لحظة جديدة</h2></div></div>
       <form id="memoryForm">
-        <input type="hidden" id="editId">
         <div class="formgrid">
-          <div class="field"><label for="memTitle">عنوان الذكرى *</label><input id="memTitle" maxlength="120" required placeholder="يوم لا يُنسى"></div>
+          <div class="field"><label for="memTitle">عنوان الذكرى *</label><input id="memTitle" required placeholder="يوم لا يُنسى"></div>
           <div class="field"><label for="memDate">تاريخ الذكرى *</label><input id="memDate" type="date" required></div>
-          <div class="field full"><label for="memBody">الحكاية</label><textarea id="memBody" maxlength="15000" placeholder="اكتب ما تريد الاحتفاظ به…"></textarea></div>
-          <div class="field"><label for="memPrivacy">الخصوصية</label><select id="memPrivacy"><option value="private">خاصة — أنا فقط</option><option value="public">عامة — يمكن للجميع مشاهدتها</option></select></div>
-          <div class="field"><label for="memTags">هاشتاجات (اختياري)</label><input id="memTags" maxlength="240" placeholder="العائلة، سفر، يوميات"></div>
-          <div class="field full"><label for="memImage">ارفع الصورة من جهازك مباشرة إلى Supabase (اختياري)</label><input id="memImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><div id="imagePreview" class="filepreview"></div><span class="small muted">اختَر الصورة من الهاتف؛ لا تحتاج إلى رابط. تُرفع عند الضغط على «حفظ الذكرى». JPG / PNG / WebP / GIF — حتى 8MB.</span></div>
-          <div class="field full"><label for="memAudioFile">ملف صوتي موجود (اختياري)</label><input id="memAudioFile" type="file" accept="audio/*"><span class="small muted">حتى 15MB للتسجيل الصوتي.</span></div>
-          <div class="field full"><label>أو سجّل ذكرى صوتية</label><div class="actions"><button class="btn secondary smallbtn" type="button" id="recordStart">● بدء التسجيل</button><button class="btn secondary smallbtn" type="button" id="recordStop" disabled>■ إيقاف</button><button class="btn ghost smallbtn" type="button" id="recordCancel" disabled>إلغاء التسجيل</button></div><div id="recordState" class="small muted">لم يبدأ التسجيل.</div><audio id="audioPreview" class="hidden" controls></audio></div>
-          <div class="field"><label for="memPlace">اسم المكان (اختياري)</label><input id="memPlace" maxlength="180" placeholder="اكتب المكان يدويًا"></div>
-          <div class="field"><label>الموقع الحالي</label><button type="button" id="getLocation" class="btn secondary">إضافة موقعي بموافقتي</button><span id="locationState" class="small muted">لن نطلب الموقع إلا عند ضغطك.</span></div>
-          <label class="checkrow field full"><input type="checkbox" id="memComments" checked> السماح بالتعليقات على هذه الذكرى (للذكريات العامة فقط)</label>
+          <div class="field full"><label for="memBody">الحكاية</label><textarea id="memBody" placeholder="اكتب ما تريد الاحتفاظ به…"></textarea></div>
         </div>
-        <div class="actions"><button class="btn" id="saveMemory" type="submit">حفظ الذكرى</button><button class="btn secondary hidden" type="button" id="cancelEdit">إلغاء التعديل</button><button class="btn ghost" type="button" id="clearMemory">مسح الحقول</button></div>
-        <p class="small muted">الحفظ يحتاج اتصالًا بالإنترنت. لا تُرفع الملفات إلا بعد ضغط «حفظ الذكرى».</p>
+        <div class="actions"><button class="btn" type="submit">حفظ الذكرى</button></div>
       </form>
     </div>
   </section>
 
   <section id="view-book" class="wrap hidden appmain">
-    <div class="sectionhead"><div><h2>كتاب ذكرياتي</h2><p>كل صفحة مرتبطة بمعرّف ثابت، ويمكن فتح الذكريات العامة برابط مستقل.</p></div><button class="btn" id="bookNew">＋ ذكرى جديدة</button></div>
-    <div class="toolbar"><input class="searchbox" id="memorySearch" placeholder="ابحث في عنوان أو نص ذكرياتك…"><select class="searchbox" id="typeFilter" style="max-width:160px"><option value="all">كل الأنواع</option><option value="image">بها صورة</option><option value="audio">بها صوت</option><option value="text">نص فقط</option></select><select class="searchbox" id="sortMemories" style="max-width:160px"><option value="new">الأحدث أولًا</option><option value="old">الأقدم أولًا</option></select></div>
+    <div class="sectionhead"><div><h2>كتاب ذكرياتي</h2></div></div>
     <div id="bookList" class="memorylist"><div class="empty">سجّل الدخول لفتح كتابك.</div></div>
   </section>
 
   <section id="view-explore" class="wrap hidden appmain">
-    <div class="sectionhead"><div><h2>استكشف الذكريات العامة</h2><p>هنا تظهر الذكريات التي اختار أصحابها نشرها للعامة فقط.</p></div></div>
-    <div class="toolbar"><input class="searchbox" id="exploreSearch" placeholder="ابحث في الذكريات العامة…"><button class="btn secondary" id="refreshExplore">تحديث</button></div>
-    <div id="exploreList" class="memorylist"><div class="empty">جارٍ تحميل المحتوى العام…</div></div>
-  </section>
-
-  <section id="view-memory" class="wrap hidden appmain">
-    <div class="actions" style="margin-bottom:18px"><button class="btn secondary" id="memoryBack">← رجوع</button><button class="btn secondary" id="shareMemory">مشاركة الرابط</button></div>
-    <article id="memoryDetail" class="bookpage"><p>جارٍ تحميل الذكرى…</p></article>
-    <div class="panel" id="interactionPanel">
-      <div class="actions"><button class="btn secondary" id="likeButton">♡ إعجاب</button><span id="likeCount" class="muted">0 إعجاب</span></div>
-      <div class="separator"></div>
-      <h3>التعليقات</h3>
-      <form id="commentForm"><div class="field"><label for="commentText">اكتب تعليقًا</label><textarea id="commentText" rows="3" maxlength="1500" required placeholder="اكتب تعليقًا محترمًا…"></textarea></div><div class="actions"><button class="btn" type="submit">إرسال التعليق</button></div></form>
-      <div id="commentsList" class="memorylist" style="margin-top:18px"></div>
-    </div>
+    <div class="sectionhead"><div><h2>استكشف الذكريات العامة</h2></div></div>
+    <div id="exploreList" class="memorylist"><div class="empty">لا يوجد محتوى حالياً.</div></div>
   </section>
 
   <section id="view-profile" class="wrap hidden appmain">
-    <div id="profileCard" class="panel profilehero"><img class="avatar" id="profileAvatar" src="./assets/logo.svg" alt=""><div><h2 id="profileName">ملفي الشخصي</h2><div id="profileUsername" class="muted"></div><p id="profileBio"></p></div><button class="btn secondary" id="shareProfile">مشاركة الملف</button></div>
-    <div class="panel"><div class="sectionhead"><div><h2>ذكريات الملف الشخصي</h2><p id="profileCaption">ذكرياتك المنشورة حسب إعدادات الخصوصية.</p></div></div><div id="profileMemories" class="memorylist"></div></div>
+    <div class="panel profilehero"><h2 id="profileName">ملفي الشخصي</h2></div>
   </section>
 
   <section id="view-settings" class="wrap hidden appmain">
-    <div class="sectionhead"><div><h2>الإعدادات</h2><p>تحكم في بيانات حسابك وخصوصيتك.</p></div></div>
-    <div class="settingsgrid">
-      <div class="panel">
-        <h3>الملف الشخصي</h3>
-        <form id="profileForm" class="formgrid">
-          <div class="field full"><label for="profileEditName">الاسم الظاهر</label><input id="profileEditName" maxlength="60" required></div>
-          <div class="field full"><label for="profileEditBio">النبذة</label><textarea id="profileEditBio" rows="3" maxlength="240"></textarea></div>
-          <div class="field full"><label for="profileEditBirth">تاريخ الميلاد (خاص افتراضيًا)</label><input id="profileEditBirth" type="date"></div>
-          <div class="field full"><label for="profileEditVisibility">نوع الحساب</label><select id="profileEditVisibility"><option value="private">خاص</option><option value="public">عام</option></select></div>
-          <label class="checkrow field full"><input type="checkbox" id="profileEditComments"> السماح بالتعليقات على الذكريات العامة</label>
-          <div class="field full"><button class="btn" type="submit">حفظ التغييرات</button></div>
-        </form>
-      </div>
-      <div class="panel">
-        <h3>الحساب والبيانات</h3>
-        <p class="muted small">الحساب مربوط بمزوّد Google. الخروج ينهي جلسة الموقع على هذا الجهاز.</p>
-        <div class="actions"><button class="btn secondary" id="exportData">تصدير بياناتي JSON</button><button class="btn secondary" id="logoutBtn">تسجيل الخروج</button></div>
-        <div class="separator"></div>
-        <h3>حذف الحساب</h3>
-        <p class="muted small">الحذف الكامل يحتاج تنفيذ وظيفة موثوقة في الخادم لحذف سجلات المستخدم وملفاته بأمان. لن ندّعي حذفًا كاملًا من المتصفح وحده.</p>
-        <button class="btn danger" id="deleteRequest">إظهار تعليمات حذف الحساب</button>
-        <div id="deleteInfo" class="small muted hidden"></div>
-        <div class="separator"></div>
-        <h3>إعداد الاتصال</h3>
-        <p class="muted small">مفتاح Supabase العام مطلوب للملفات. لا تضع مفتاح service_role هنا.</p>
-        <form id="supabaseForm" class="formgrid">
-          <div class="field full"><label for="supabaseAnon">Supabase anon / publishable key</label><input id="supabaseAnon" type="password" autocomplete="off" placeholder="ألصق المفتاح العام هنا"></div>
-          <div class="field full"><button class="btn secondary" type="submit">حفظ المفتاح على هذا الجهاز</button></div>
-        </form>
-        <div class="small muted">المفتاح العام يُحفظ في هذا المتصفح فقط. لا تستخدم service_role. يجب إنشاء Bucket باسم memories وضبط سياسات Storage للسماح للمستخدم المسجّل برفع ملفاته.</div>
-      </div>
-    </div>
+    <div class="sectionhead"><div><h2>الإعدادات</h2></div></div>
   </section>
 </main>
 
 <nav class="bottomnav" id="bottomNav">
-  <button data-view="home"><span>⌂</span><span>الرئيسية</span></button>
-  <button data-view="book"><span>▤</span><span>كتابي</span></button>
-  <button data-view="explore"><span>◇</span><span>استكشف</span></button>
-  <button data-view="profile"><span>♙</span><span>ملفي</span></button>
-  <button data-view="settings"><span>⚙</span><span>الإعدادات</span></button>
+  <button onclick="switchTab('home')"><span>⌂</span><span>الرئيسية</span></button>
+  <button onclick="switchTab('book')"><span>▤</span><span>كتابي</span></button>
+  <button onclick="switchTab('explore')"><span>◇</span><span>استكشف</span></button>
+  <button onclick="switchTab('profile')"><span>♙</span><span>ملفي</span></button>
+  <button onclick="switchTab('settings')"><span>⚙</span><span>الإعدادات</span></button>
 </nav>
-<div class="toastbox" id="toastbox" aria-live="polite"></div>
-<footer><div class="wrap">NEGM MEMORIES · حكايتك، وذكرياتك، وحياتك<br><span>احتفظ بما يهمك، وشارك فقط ما تختاره.</span></div></footer>
+
+<script>
+// كود التنقل المستقل لتشغيل كافة الأزرار فوراً وبدون تعليق
+function switchTab(viewId) {
+  const views = ["home", "auth", "setup", "dashboard", "book", "explore", "profile", "settings"];
+  views.forEach(function(v) {
+    const el = document.getElementById("view-" + v);
+    if(el) {
+      if (v === viewId) {
+        el.classList.remove("hidden");
+      } else {
+        el.classList.add("hidden");
+      }
+    }
+  });
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+</script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getDatabase, ref, get, set, update, remove, push, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBJ4C_cVK7JZtsg_YRPuqzBsrE9oGsxfyA",
+  apiKey: "AIzaSyALfe6-DIykFFQoxK2Y9WS_LQKPLp5aUvo",
   authDomain: "zekrah-8b1fb.firebaseapp.com",
   databaseURL: "https://zekrah-8b1fb-default-rtdb.firebaseio.com",
   projectId: "zekrah-8b1fb",
   storageBucket: "zekrah-8b1fb.firebasestorage.app",
   messagingSenderId: "545661618032",
-  appId: "1:545661618032:web:8e435fd56e826abed8b1b5",
-  measurementId: "G-N9RVQB0LLH"
+  appId: "1:545661618032:web:b148cec5c8330d2ad8b1b5",
+  measurementId: "G-W0FTWDQNLR"
 };
-const SUPABASE_URL = "https://byesoztsovwhnxrsgnsm.supabase.co";
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
-provider.setCustomParameters({prompt:"select_account"});
-const $ = id => document.getElementById(id);
-const state = {user:null, profile:null, memories:[], publicMemories:[], currentMemory:null, currentView:"home", location:null, recorder:null, chunks:[], recordedBlob:null, recordUrl:null, imageUrl:null, audioUrl:null, editExisting:null, supabaseKey:localStorage.getItem("negm_supabase_public_key")||"", mediaStream:null};
-const views = ["home","auth","setup","dashboard","book","explore","memory","profile","settings"];
-const nowDate = () => new Date().toISOString().slice(0,10);
-$("memDate").value = nowDate();
 
-function toast(message,type=""){const el=document.createElement("div");el.className="toast "+type;el.textContent=message;$("toastbox").appendChild(el);setTimeout(()=>el.remove(),4200)}
-function errText(e){const c=e?.code||"";const map={"auth/popup-closed-by-user":"تم إغلاق نافذة Google قبل إكمال الدخول.","auth/cancelled-popup-request":"عملية الدخول أُلغيت.","auth/unauthorized-domain":"النطاق الحالي غير مضاف إلى النطاقات المصرّح بها في Firebase Authentication.","auth/network-request-failed":"تعذر الاتصال بالإنترنت. حاول مرة أخرى.","auth/api-key-not-valid.-please-pass-a-valid-api-key.":"Firebase رفض مفتاح API. تأكد أن المفتاح الحالي من تطبيق الويب داخل مشروع zekrah-8b1fb، وأن قيود المفتاح في Google Cloud تسمح بنطاق الموقع.","PERMISSION_DENIED":"قواعد قاعدة البيانات لا تسمح بالعملية المطلوبة.","storage":"تعذر رفع الملف إلى Supabase. راجع المفتاح العام وbucket والسياسات."};return map[c]||e?.message||"حدث خطأ غير متوقع."}
-function esc(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function route(){const hash=location.hash.replace(/^#\/?/,"");if(hash.startsWith("memory/")){openMemoryRoute(hash.split("/")[1]);return}if(hash.startsWith("profile/")){openProfileRoute(hash.split("/")[1]);return}showView(hash||"home",false)}
-function showView(name,changeHash=true){if(!views.includes(name))name="home";state.currentView=name;views.forEach(v=>$("view-"+v)?.classList.toggle("hidden",v!==name));document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===name));if(changeHash){const h=name==="home"?"#home":"#"+name;if(location.hash!==h)history.pushState({view:name},"",h)}window.scrollTo({top:0,behavior:"smooth"});if(name==="explore")loadExplore();if(name==="dashboard")renderDashboard();if(name==="book")renderBook();if(name==="profile")renderOwnProfile();if(name==="settings")fillSettings()}
-function goAuth(){if(state.user){showView(state.profile?"dashboard":"setup");return}showView("auth")}
-async function googleLogin(){try{const result=await signInWithPopup(auth,provider);toast("تم تسجيل الدخول بنجاح","success");await ensureProfile(result.user)}catch(e){if(e.code==="auth/popup-blocked"){try{await signInWithRedirect(auth,provider)}catch(x){toast(errText(x),"error")}}else if(e.code!=="auth/popup-closed-by-user")toast(errText(e),"error")}}
-getRedirectResult(auth).catch(e=>toast(errText(e),"error"));
-onAuthStateChanged(auth,async user=>{state.user=user;if(user){$("topAuth").textContent="حسابي";try{await ensureProfile(user)}catch(e){toast("تعذر تحميل الملف الشخصي: "+errText(e),"error");showView("setup")}loadPublicMemories()}else{state.profile=null;$("topAuth").textContent="دخول Google";showView(state.currentView==="memory"?"home":state.currentView,false);loadPublicMemories()}});
-async function ensureProfile(user){const snap=await get(ref(db,"profiles/"+user.uid));if(snap.exists()){state.profile=snap.val();if(!state.profile.username){showView("setup");return}showView("dashboard");fillSettings();await loadMyMemories();}else{state.profile=null;$("setupName").value=user.displayName||"";$("setupUsername").value=(user.displayName||"user").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9_]/g,"_").replace(/_+/g,"_").replace(/^_|_$/g,"").slice(0,20)||"user";showView("setup")}}
-$("googleLogin").addEventListener("click",googleLogin);$("topAuth").addEventListener("click",()=>state.user?showView("dashboard"):goAuth());$("heroStart").addEventListener("click",goAuth);$("heroExplore").addEventListener("click",()=>showView("explore"));$("seeExplore").addEventListener("click",()=>showView("explore"));$("authBack").addEventListener("click",()=>showView("home"));
-document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.view;if(["book","profile","settings","dashboard"].includes(v)&&!state.user){goAuth();return}showView(v)}));
-window.addEventListener("hashchange",route);window.addEventListener("popstate",route);
-$("setupForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user)return goAuth();const username=$("setupUsername").value.trim().toLowerCase();if(!/^[a-z0-9_]{3,24}$/.test(username))return toast("اسم المستخدم يجب أن يكون من 3 إلى 24 حرفًا إنجليزيًا أو رقمًا أو _","error");const existing=await get(ref(db,"usernames/"+username));if(existing.exists()&&existing.val()!==state.user.uid)return toast("اسم المستخدم مستخدم بالفعل، اختر اسمًا آخر.","error");const p={uid:state.user.uid,name:$("setupName").value.trim(),username,bio:$("setupBio").value.trim(),birthday:$("setupBirthday").value||"",visibility:$("setupVisibility").value,allowComments:$("setupComments").checked,photoURL:state.user.photoURL||"",createdAt:state.profile?.createdAt||Date.now(),updatedAt:Date.now()};try{const updates={};if(state.profile?.username&&state.profile.username!==username)updates["usernames/"+state.profile.username]=null;updates["usernames/"+username]=state.user.uid;updates["profiles/"+state.user.uid]=p;await update(ref(db),updates);state.profile=p;toast("تم حفظ ملفك الشخصي","success");await loadMyMemories();showView("dashboard")}catch(err){toast(errText(err),"error")}});
-async function loadMyMemories(){if(!state.user)return;const s=await get(ref(db,"memories"));const all=s.exists()?s.val():{};state.memories=Object.entries(all).filter(([id,m])=>m.ownerUid===state.user.uid).map(([id,m])=>({id,...m})).sort((a,b)=>(b.updatedAt||b.createdAt||0)-(a.updatedAt||a.createdAt||0));}
-async function loadPublicMemories(){try{const s=await get(ref(db,"memories"));const all=s.exists()?s.val():{};state.publicMemories=Object.entries(all).filter(([id,m])=>m.privacy==="public"&&m.status!=="deleted").map(([id,m])=>({id,...m})).sort((a,b)=>(b.updatedAt||b.createdAt||0)-(a.updatedAt||a.createdAt||0)).slice(0,50);renderPublicHome()}catch(e){$("homePublic").innerHTML='<div class="empty">تعذر تحميل الذكريات العامة. راجع قواعد قاعدة البيانات والاتصال.</div>'}}
-function dateLabel(v){if(!v)return "بدون تاريخ";try{return new Date(v+"T12:00:00").toLocaleDateString("ar-EG",{year:"numeric",month:"long",day:"numeric"})}catch{return v}}
-function memoryCard(m,owner=false){const image=m.imageUrl?`<img class="memoryphoto" src="${esc(m.imageUrl)}" alt="" loading="lazy">`:`<div class="memoryphoto" style="display:grid;place-items:center;font-size:2rem">📖</div>`;return `<article class="memorycard"><div>${image}</div><div class="memorytext"><h3>${esc(m.title||"ذكرى بلا عنوان")}</h3><div class="meta"><span>${esc(dateLabel(m.date))}</span><span>${m.privacy==="public"?"🌐 عامة":"🔒 خاصة"}</span>${m.audioUrl?"<span>🎙️ صوت</span>":""}</div><p>${esc((m.body||"لا يوجد نص مرفق.").slice(0,240))}${(m.body||"").length>240?"…":""}</p><div class="actions"><button class="btn secondary smallbtn" data-open-memory="${esc(m.id)}">فتح الذكرى</button>${owner?`<button class="btn secondary smallbtn" data-edit-memory="${esc(m.id)}">تعديل</button><button class="btn danger smallbtn" data-delete-memory="${esc(m.id)}">حذف</button>`:""}${m.privacy==="public"?`<button class="btn ghost smallbtn" data-share-memory="${esc(m.id)}">مشاركة</button>`:""}</div></div></article>`}
-function bindMemoryButtons(root){root.querySelectorAll("[data-open-memory]").forEach(b=>b.addEventListener("click",()=>openMemory(b.dataset.openMemory)));root.querySelectorAll("[data-edit-memory]").forEach(b=>b.addEventListener("click",()=>editMemory(b.dataset.editMemory)));root.querySelectorAll("[data-delete-memory]").forEach(b=>b.addEventListener("click",()=>deleteMemory(b.dataset.deleteMemory)));root.querySelectorAll("[data-share-memory]").forEach(b=>b.addEventListener("click",()=>shareMemory(b.dataset.shareMemory)))}
-function renderDashboard(){if(!state.user)return;$("dashName").textContent=state.profile?.name||state.user.displayName||"كتابك ينتظرك";$("dashHandle").textContent=state.profile?.username?"@"+state.profile.username:"";$("dashAvatar").src=state.profile?.photoURL||state.user.photoURL||"./assets/logo.svg";$("statMemories").textContent=state.memories.length;$("statPhotos").textContent=state.memories.filter(m=>m.imageUrl).length;$("statAudio").textContent=state.memories.filter(m=>m.audioUrl).length;const list=$("myRecent");list.innerHTML=state.memories.length?state.memories.slice(0,4).map(m=>memoryCard(m,true)).join(""):'<div class="empty"><div class="big">📖</div><h3>دي أول صفحة في حكايتك</h3><p>اكتب أول ذكرى، وخليها بداية كتابك.</p><button class="btn" data-new-memory>اكتب أول ذكرى</button></div>';bindMemoryButtons(list);list.querySelector("[data-new-memory]")?.addEventListener("click",()=>{$("memTitle").focus();$("memoryForm").scrollIntoView({behavior:"smooth"})})}
-function renderBook(){const q=($("memorySearch").value||"").trim().toLowerCase(),type=$("typeFilter").value,sort=$("sortMemories").value;let arr=state.memories.filter(m=>(!q||((m.title||"")+" "+(m.body||"")+" "+(m.tags||"")).toLowerCase().includes(q))&&(type==="all"||(type==="image"&&m.imageUrl)||(type==="audio"&&m.audioUrl)||(type==="text"&&!m.imageUrl&&!m.audioUrl)));arr.sort((a,b)=>sort==="new"?(b.date||"").localeCompare(a.date||""):(a.date||"").localeCompare(b.date||""));$("bookList").innerHTML=arr.length?arr.map(m=>memoryCard(m,true)).join(""):'<div class="empty"><div class="big">📚</div><h3>لا توجد ذكريات مطابقة</h3><p>اكتب ذكرى جديدة أو غيّر كلمات البحث.</p></div>';bindMemoryButtons($("bookList"))}
-function renderPublicHome(){const list=$("homePublic");list.innerHTML=state.publicMemories.length?state.publicMemories.slice(0,3).map(m=>memoryCard(m,false)).join(""):'<div class="empty"><div class="big">✦</div><h3>لسه مفيش ذكريات عامة</h3><p>عندما يختار المستخدمون نشر ذكرياتهم، ستظهر هنا.</p></div>';bindMemoryButtons(list)}
-async function loadExplore(){await loadPublicMemories();const q=($("exploreSearch").value||"").trim().toLowerCase();const arr=state.publicMemories.filter(m=>(!q||((m.title||"")+" "+(m.body||"")+" "+(m.tags||"")).toLowerCase().includes(q)));$("exploreList").innerHTML=arr.length?arr.map(m=>memoryCard(m,false)).join(""):'<div class="empty"><div class="big">◇</div><h3>لا توجد ذكريات عامة مطابقة</h3><p>جرّب كلمة بحث مختلفة أو عُد لاحقًا.</p></div>';bindMemoryButtons($("exploreList"))}
-$("refreshExplore").addEventListener("click",loadExplore);$("exploreSearch").addEventListener("input",()=>{const q=$("exploreSearch").value.toLowerCase();const arr=state.publicMemories.filter(m=>((m.title||"")+" "+(m.body||"")+" "+(m.tags||"")).toLowerCase().includes(q));$("exploreList").innerHTML=arr.length?arr.map(m=>memoryCard(m,false)).join(""):'<div class="empty">لا توجد نتائج.</div>';bindMemoryButtons($("exploreList"))});["memorySearch","typeFilter","sortMemories"].forEach(id=>$(id).addEventListener("input",renderBook));
-async function uploadSupabase(file,folder){
-  if(!state.supabaseKey)throw new Error("افتح الإعدادات وأضف مفتاح Supabase العام أولًا.");
-  if(!state.user)throw new Error("سجّل الدخول أولًا.");
-  if(!file)return null;
-  const isImage=folder==="images",max=isImage?8*1024*1024:15*1024*1024;
-  if(file.size>max)throw new Error(isImage?"حجم الصورة أكبر من 8MB.":"حجم الملف الصوتي أكبر من 15MB.");
-  if(isImage&&!(["image/jpeg","image/png","image/webp","image/gif"].includes(file.type)))throw new Error("صيغة الصورة غير مدعومة. استخدم JPG أو PNG أو WebP أو GIF.");
-  if(!isImage&&!file.type.startsWith("audio/"))throw new Error("اختَر ملفًا صوتيًا صالحًا.");
-  const safeName=(file.name.split(".").pop()|| (isImage?"jpg":"webm")).replace(/[^a-zA-Z0-9]/g,"").slice(0,8)|| (isImage?"jpg":"webm");
-  const randomId=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36);
-  const path=`${state.user.uid}/${Date.now()}_${randomId}.${safeName}`;
-  const response=await fetch(`${SUPABASE_URL}/storage/v1/object/memories/${path}`,{method:"POST",headers:{"apikey":state.supabaseKey,"Authorization":"Bearer "+state.supabaseKey,"Content-Type":file.type||"application/octet-stream","x-upsert":"false"},body:file});
-  if(!response.ok){let detail="";try{const data=await response.json();detail=data.message||data.error||data.error_description||""}catch{try{detail=(await response.text()).slice(0,180)}catch{}}
-    if(response.status===401||response.status===403)throw new Error("Supabase رفض الرفع. تأكد من المفتاح العام وسياسات Storage للمستخدم المسجّل.");
-    if(response.status===404)throw new Error("Bucket باسم memories غير موجود في Supabase Storage.");
-    throw new Error("فشل رفع الملف إلى Supabase ("+response.status+"). "+detail);
+document.getElementById("googleLogin")?.addEventListener("click", () => {
+  signInWithPopup(auth, provider).then(() => {
+    alert("تم تسجيل الدخول بنجاح!");
+    switchTab('dashboard');
+  }).catch(e => alert(e.message));
+});
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    document.getElementById("topAuth").textContent = "حسابي";
+  } else {
+    document.getElementById("topAuth").textContent = "دخول Google";
   }
-  return `${SUPABASE_URL}/storage/v1/object/public/memories/${path}`;
-}
-$("supabaseForm").addEventListener("submit",e=>{e.preventDefault();state.supabaseKey=$("supabaseAnon").value.trim();localStorage.setItem("negm_supabase_public_key",state.supabaseKey);toast("تم حفظ المفتاح العام على هذا الجهاز","success")});
-$("memImage").addEventListener("change",()=>{const f=$("memImage").files[0];$("imagePreview").innerHTML="";if(!f)return;if(!f.type.startsWith("image/")||f.size>8*1024*1024){$("memImage").value="";return toast("اختر صورة صالحة أقل من 8MB","error")}const img=document.createElement("img");img.src=URL.createObjectURL(f);img.alt="معاينة الصورة";$("imagePreview").appendChild(img)});
-$("recordStart").addEventListener("click",async()=>{try{if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder)throw new Error("التسجيل الصوتي غير مدعوم في هذا المتصفح.");state.mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});state.chunks=[];state.recorder=new MediaRecorder(state.mediaStream);state.recorder.ondataavailable=e=>{if(e.data.size)state.chunks.push(e.data)};state.recorder.onstop=()=>{state.recordedBlob=new Blob(state.chunks,{type:state.recorder.mimeType||"audio/webm"});if(state.recordUrl)URL.revokeObjectURL(state.recordUrl);state.recordUrl=URL.createObjectURL(state.recordedBlob);$("audioPreview").src=state.recordUrl;$("audioPreview").classList.remove("hidden");$("recordState").textContent="تم تجهيز التسجيل. استمع إليه قبل الحفظ.";state.mediaStream?.getTracks().forEach(t=>t.stop());state.mediaStream=null};state.recorder.start();$("recordStart").disabled=true;$("recordStop").disabled=false;$("recordCancel").disabled=false;$("recordState").textContent="🔴 جارٍ التسجيل… اضغط إيقاف عند الانتهاء."}catch(e){toast(errText(e),"error")}});
-$("recordStop").addEventListener("click",()=>{if(state.recorder?.state==="recording")state.recorder.stop();$("recordStart").disabled=false;$("recordStop").disabled=true});
-$("recordCancel").addEventListener("click",()=>{if(state.recorder&&state.recorder.state!=="inactive")state.recorder.stop();state.recordedBlob=null;setTimeout(()=>{$("audioPreview").classList.add("hidden");$("recordState").textContent="تم إلغاء التسجيل."},100);$("recordStart").disabled=false;$("recordStop").disabled=true;$("recordCancel").disabled=true});
-$("getLocation").addEventListener("click",()=>{if(!navigator.geolocation)return toast("المتصفح لا يدعم تحديد الموقع.","error");$("locationState").textContent="ننتظر موافقتك من نافذة المتصفح…";navigator.geolocation.getCurrentPosition(pos=>{state.location={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};$("locationState").textContent=`تم الحصول على الموقع بدقة تقريبية ${Math.round(pos.coords.accuracy)} متر. سيُحفظ مع الذكرى.`;toast("تم تحديد الموقع بعد موافقتك","success")},e=>{$("locationState").textContent="لم يتم تحديد الموقع؛ يمكنك كتابة اسم المكان يدويًا.";toast(e.code===1?"رفضت إذن الموقع. يمكنك حفظ الذكرى بدونه.":"تعذر تحديد الموقع.","error")},{enableHighAccuracy:false,timeout:10000,maximumAge:60000})});
-$("memoryForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user)return goAuth();const btn=$("saveMemory");btn.disabled=true;btn.innerHTML='<span class="loading"></span> جارٍ الحفظ…';try{const id=$("editId").value||push(ref(db,"memories")).key;let imageUrl=state.editExisting?.imageUrl||null,audioUrl=state.editExisting?.audioUrl||null;const imageFile=$("memImage").files[0],audioFile=$("memAudioFile").files[0];if(imageFile)imageUrl=await uploadSupabase(imageFile,"images");let soundFile=audioFile;if(state.recordedBlob)soundFile=new File([state.recordedBlob],`memory_${Date.now()}.webm`,{type:state.recordedBlob.type||"audio/webm"});if(soundFile)audioUrl=await uploadSupabase(soundFile,"audio");const old=state.editExisting||{};const m={id,ownerUid:state.user.uid,ownerUsername:state.profile?.username||"",ownerName:state.profile?.name||state.user.displayName||"مستخدم",ownerPhoto:state.profile?.photoURL||state.user.photoURL||"",title:$("memTitle").value.trim(),body:$("memBody").value.trim(),date:$("memDate").value,privacy:$("memPrivacy").value,tags:$("memTags").value.split(/[,،#\s]+/).filter(Boolean).slice(0,15),place:$("memPlace").value.trim(),location:state.location||old.location||null,allowComments:$("memComments").checked,imageUrl,audioUrl,createdAt:old.createdAt||Date.now(),updatedAt:Date.now(),likesCount:old.likesCount||0,status:"active"};if(!m.title)throw new Error("اكتب عنوان الذكرى.");await set(ref(db,"memories/"+id),m);toast("تم حفظ الذكرى بنجاح","success");resetMemoryForm();await loadMyMemories();await loadPublicMemories();renderDashboard();renderBook()}catch(err){toast(errText(err),"error")}finally{btn.disabled=false;btn.textContent="حفظ الذكرى"}});
-function resetMemoryForm(){ $("memoryForm").reset();$("editId").value="";$("memDate").value=nowDate();$("memPrivacy").value="private";$("imagePreview").innerHTML="";$("audioPreview").classList.add("hidden");$("recordStart").disabled=false;$("recordStop").disabled=true;$("recordCancel").disabled=true;state.recordedBlob=null;state.editExisting=null;state.location=null;$("locationState").textContent="لن نطلب الموقع إلا عند ضغطك.";$("cancelEdit").classList.add("hidden");$("saveMemory").textContent="حفظ الذكرى"}
-$("clearMemory").addEventListener("click",resetMemoryForm);$("cancelEdit").addEventListener("click",resetMemoryForm);["newMemoryTop","bookNew"].forEach(id=>$(id).addEventListener("click",()=>{$("memoryForm").scrollIntoView({behavior:"smooth",block:"start"});$("memTitle").focus()}));
-function editMemory(id){const m=state.memories.find(x=>x.id===id);if(!m)return;state.editExisting=m;$("editId").value=id;$("memTitle").value=m.title||"";$("memDate").value=m.date||nowDate();$("memBody").value=m.body||"";$("memPrivacy").value=m.privacy||"private";$("memTags").value=(m.tags||[]).join("، ");$("memPlace").value=m.place||"";$("memComments").checked=m.allowComments!==false;$("cancelEdit").classList.remove("hidden");$("saveMemory").textContent="حفظ التعديلات";$("memoryForm").scrollIntoView({behavior:"smooth"})}
-async function deleteMemory(id){const m=state.memories.find(x=>x.id===id);if(!m||!confirm("هل أنت متأكد من حذف هذه الذكرى؟ لا يمكن التراجع عن حذف سجلها."))return;try{await remove(ref(db,"memories/"+id));await loadMyMemories();await loadPublicMemories();renderDashboard();renderBook();toast("تم حذف الذكرى من قاعدة البيانات. قد تحتاج الملفات المرفوعة إلى حذف من Storage بشكل منفصل.","success")}catch(e){toast(errText(e),"error")}}
-async function openMemory(id){try{let m=state.memories.find(x=>x.id===id)||state.publicMemories.find(x=>x.id===id);if(!m){const s=await get(ref(db,"memories/"+id));if(s.exists())m={id,...s.val()}}if(!m)throw new Error("الذكرى غير موجودة أو تم حذفها.");if(m.privacy!=="public"&&m.ownerUid!==state.user?.uid)throw new Error("هذه الذكرى خاصة ولا تملك صلاحية عرضها.");state.currentMemory=m;renderMemoryDetail(m);showView("memory");if(location.hash!=="#memory/"+id)history.pushState({view:"memory"},"","#memory/"+id);await loadInteractions(id)}catch(e){toast(errText(e),"error");if(!state.user)showView("home")}}
-async function openMemoryRoute(id){if(!id)return showView("home",false);await openMemory(decodeURIComponent(id))}
-function renderMemoryDetail(m){$("memoryDetail").innerHTML=`<div class="meta"><span>صفحة من كتاب الذكريات</span><span>${esc(dateLabel(m.date))}</span><span>${m.privacy==="public"?"🌐 عامة":"🔒 خاصة"}</span></div><h2>${esc(m.title)}</h2>${m.imageUrl?`<img src="${esc(m.imageUrl)}" alt="${esc(m.title)}">`:""}<div class="story">${esc(m.body||"")}</div>${m.place?`<p><b>المكان:</b> ${esc(m.place)}</p>`:""}${m.audioUrl?`<audio controls preload="metadata" src="${esc(m.audioUrl)}"></audio>`:""}${(m.tags||[]).length?`<p>${m.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join(" ")}</p>`:""}<div class="separator"></div><div class="meta">صاحب الذكرى: ${esc(m.ownerName||"")}${m.ownerUsername?" · @"+esc(m.ownerUsername):""}</div>${m.ownerUid===state.user?.uid?'<div class="actions"><button class="btn secondary" id="detailEdit">تعديل الذكرى</button><button class="btn danger" id="detailDelete">حذف الذكرى</button></div>':""}`;$("detailEdit")?.addEventListener("click",()=>{showView("dashboard");setTimeout(()=>editMemory(m.id),100)});$("detailDelete")?.addEventListener("click",()=>deleteMemory(m.id));$("shareMemory").classList.toggle("hidden",m.privacy!=="public");$("interactionPanel").classList.toggle("hidden",m.privacy!=="public");}
-async function loadInteractions(id){$("commentsList").innerHTML="";$("likeCount").textContent="—";if(state.currentMemory?.privacy!=="public")return;try{const [likes,comments]=await Promise.all([get(ref(db,"likes/"+id)),get(ref(db,"comments/"+id))]);const lm=likes.exists()?likes.val():{},cm=comments.exists()?comments.val():{};$("likeCount").textContent=Object.keys(lm).length+" إعجاب";$("likeButton").textContent=state.user&&lm[state.user.uid]?"♥ أزل الإعجاب":"♡ إعجاب";const arr=Object.entries(cm).map(([key,c])=>({key,...c})).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));$("commentsList").innerHTML=arr.length?arr.map(c=>`<article class="memorycard" style="grid-template-columns:1fr"><b>${esc(c.name||"مستخدم")}</b><div class="meta">${esc(new Date(c.createdAt||Date.now()).toLocaleString("ar-EG"))}</div><p>${esc(c.text||"")}</p>${c.uid===state.user?.uid?`<button class="btn danger smallbtn" data-delete-comment="${esc(c.key)}">حذف تعليقي</button>`:""}</article>`).join(""):'<div class="empty">لا توجد تعليقات حتى الآن.</div>'; $("commentsList").querySelectorAll("[data-delete-comment]").forEach(b=>b.addEventListener("click",async()=>{try{await remove(ref(db,`comments/${id}/${b.dataset.deleteComment}`));await loadInteractions(id)}catch(e){toast(errText(e),"error")}}))}catch(e){toast("تعذر تحميل التفاعلات: "+errText(e),"error")}}
-$("likeButton").addEventListener("click",async()=>{const m=state.currentMemory;if(!state.user)return goAuth();if(!m||m.privacy!=="public")return;try{const r=ref(db,`likes/${m.id}/${state.user.uid}`),s=await get(r);if(s.exists())await remove(r);else await set(r,{uid:state.user.uid,createdAt:Date.now()});await loadInteractions(m.id)}catch(e){toast(errText(e),"error")}});
-$("commentForm").addEventListener("submit",async e=>{e.preventDefault();const m=state.currentMemory;if(!state.user)return goAuth();if(!m||m.privacy!=="public")return;if(m.allowComments===false)return toast("صاحب الذكرى أغلق التعليقات.","error");const text=$("commentText").value.trim();if(!text)return;try{const r=push(ref(db,`comments/${m.id}`));await set(r,{uid:state.user.uid,name:state.profile?.name||state.user.displayName||"مستخدم",photoURL:state.user.photoURL||"",text,createdAt:Date.now()});$("commentText").value="";await loadInteractions(m.id);toast("تم نشر التعليق","success")}catch(e){toast(errText(e),"error")}});
-async function shareMemory(id){const m=state.memories.find(x=>x.id===id)||state.publicMemories.find(x=>x.id===id)||state.currentMemory;if(!m||m.privacy!=="public")return toast("لا يمكن مشاركة ذكرى خاصة.","error");const url=location.origin+location.pathname+"#memory/"+encodeURIComponent(m.id);try{await navigator.clipboard.writeText(url);toast("تم نسخ رابط الذكرى","success")}catch{prompt("انسخ رابط الذكرى العامة:",url)}}
-$("shareMemory").addEventListener("click",()=>state.currentMemory&&shareMemory(state.currentMemory.id));
-$("memoryBack").addEventListener("click",()=>showView(state.user?"book":"explore"));
-async function renderOwnProfile(){if(!state.user)return goAuth();const p=state.profile||{};$("profileAvatar").src=p.photoURL||state.user.photoURL||"./assets/logo.svg";$("profileName").textContent=p.name||state.user.displayName||"ملفي الشخصي";$("profileUsername").textContent=p.username?"@"+p.username:"";$("profileBio").textContent=p.bio||"لم يضف المستخدم نبذة بعد.";const list=$("profileMemories");const arr=state.memories.filter(m=>m.privacy==="public");list.innerHTML=arr.length?arr.map(m=>memoryCard(m,false)).join(""):'<div class="empty">لا توجد ذكريات عامة في ملفك حتى الآن.</div>';bindMemoryButtons(list)}
-async function openProfileRoute(username){const u=decodeURIComponent(username||"").toLowerCase();try{const us=await get(ref(db,"usernames/"+u));if(!us.exists())throw new Error("الملف الشخصي غير موجود.");const uid=us.val(),ps=await get(ref(db,"profiles/"+uid));if(!ps.exists())throw new Error("الملف الشخصي غير متاح.");const p=ps.val();if(p.visibility!=="public"&&uid!==state.user?.uid)throw new Error("هذا الحساب خاص.");if(uid===state.user?.uid)return showView("profile");$("profileAvatar").src=p.photoURL||"./assets/logo.svg";$("profileName").textContent=p.name||u;$("profileUsername").textContent="@"+u;$("profileBio").textContent=p.bio||"";$("profileCaption").textContent="الذكريات التي اختار صاحبها نشرها للعامة.";const s=await get(ref(db,"memories"));const arr=s.exists()?Object.entries(s.val()).filter(([id,m])=>m.ownerUid===uid&&m.privacy==="public"&&m.status!=="deleted").map(([id,m])=>({id,...m})):[];$("profileMemories").innerHTML=arr.length?arr.map(m=>memoryCard(m,false)).join(""):'<div class="empty">لا توجد ذكريات عامة منشورة.</div>';bindMemoryButtons($("profileMemories"));showView("profile");if(location.hash!=="#profile/"+u)history.pushState({view:"profile"},"","#profile/"+encodeURIComponent(u))}catch(e){toast(errText(e),"error");showView("explore")}}
-$("shareProfile").addEventListener("click",async()=>{const u=state.profile?.username;if(!u)return toast("أكمل اسم المستخدم أولًا.","error");const url=location.origin+location.pathname+"#profile/"+encodeURIComponent(u);try{await navigator.clipboard.writeText(url);toast("تم نسخ رابط الملف الشخصي","success")}catch{prompt("انسخ الرابط:",url)}});
-function fillSettings(){if(!state.user)return;const p=state.profile||{};$("profileEditName").value=p.name||state.user.displayName||"";$("profileEditBio").value=p.bio||"";$("profileEditBirth").value=p.birthday||"";$("profileEditVisibility").value=p.visibility||"private";$("profileEditComments").checked=p.allowComments!==false;$("supabaseAnon").value=state.supabaseKey}
-$("profileForm").addEventListener("submit",async e=>{e.preventDefault();if(!state.user)return;try{const p={...state.profile,name:$("profileEditName").value.trim(),bio:$("profileEditBio").value.trim(),birthday:$("profileEditBirth").value,visibility:$("profileEditVisibility").value,allowComments:$("profileEditComments").checked,updatedAt:Date.now()};await set(ref(db,"profiles/"+state.user.uid),p);state.profile=p;toast("تم حفظ إعدادات الملف الشخصي","success");renderDashboard();renderOwnProfile()}catch(e){toast(errText(e),"error")}});
-$("exportData").addEventListener("click",async()=>{if(!state.user)return;try{await loadMyMemories();const payload={profile:state.profile,memories:state.memories,exportedAt:new Date().toISOString()};const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="NEGM_MEMORIES_export.json";a.click();URL.revokeObjectURL(a.href);toast("تم تجهيز نسخة من بياناتك","success")}catch(e){toast(errText(e),"error")}});
-$("logoutBtn").addEventListener("click",async()=>{try{await signOut(auth);state.memories=[];state.profile=null;toast("تم تسجيل الخروج","success");showView("home")}catch(e){toast(errText(e),"error")}});
-$("deleteRequest").addEventListener("click",()=>{$("deleteInfo").classList.remove("hidden");$("deleteInfo").textContent="للحذف الكامل الآمن: يجب إضافة Cloud Function أو خادم موثوق يتحقق من هوية المستخدم ثم يحذف ملفه وذكرياته وتعليقاته وإعجاباته وملفاته من Supabase. حذف الحساب من المتصفح وحده قد يترك بيانات وملفات يتيمة؛ لذلك لم ننفذ حذفًا مضللًا."});
-route();
-if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{});
+});
 </script>
 </body>
 </html>
