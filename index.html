@@ -126,7 +126,7 @@
           <div class="field full"><label for="memBody">الحكاية</label><textarea id="memBody" maxlength="15000" placeholder="اكتب ما تريد الاحتفاظ به…"></textarea></div>
           <div class="field"><label for="memPrivacy">الخصوصية</label><select id="memPrivacy"><option value="private">خاصة — أنا فقط</option><option value="public">عامة — يمكن للجميع مشاهدتها</option></select></div>
           <div class="field"><label for="memTags">هاشتاجات (اختياري)</label><input id="memTags" maxlength="240" placeholder="العائلة، سفر، يوميات"></div>
-          <div class="field full"><label for="memImage">صورة رئيسية (اختياري)</label><input id="memImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><div id="imagePreview" class="filepreview"></div><span class="small muted">JPG / PNG / WebP / GIF — حتى 8MB للصورة.</span></div>
+          <div class="field full"><label for="memImage">ارفع الصورة من جهازك مباشرة إلى Supabase (اختياري)</label><input id="memImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><div id="imagePreview" class="filepreview"></div><span class="small muted">اختَر الصورة من الهاتف؛ لا تحتاج إلى رابط. تُرفع عند الضغط على «حفظ الذكرى». JPG / PNG / WebP / GIF — حتى 8MB.</span></div>
           <div class="field full"><label for="memAudioFile">ملف صوتي موجود (اختياري)</label><input id="memAudioFile" type="file" accept="audio/*"><span class="small muted">حتى 15MB للتسجيل الصوتي.</span></div>
           <div class="field full"><label>أو سجّل ذكرى صوتية</label><div class="actions"><button class="btn secondary smallbtn" type="button" id="recordStart">● بدء التسجيل</button><button class="btn secondary smallbtn" type="button" id="recordStop" disabled>■ إيقاف</button><button class="btn ghost smallbtn" type="button" id="recordCancel" disabled>إلغاء التسجيل</button></div><div id="recordState" class="small muted">لم يبدأ التسجيل.</div><audio id="audioPreview" class="hidden" controls></audio></div>
           <div class="field"><label for="memPlace">اسم المكان (اختياري)</label><input id="memPlace" maxlength="180" placeholder="اكتب المكان يدويًا"></div>
@@ -198,7 +198,7 @@
           <div class="field full"><label for="supabaseAnon">Supabase anon / publishable key</label><input id="supabaseAnon" type="password" autocomplete="off" placeholder="ألصق المفتاح العام هنا"></div>
           <div class="field full"><button class="btn secondary" type="submit">حفظ المفتاح على هذا الجهاز</button></div>
         </form>
-        <div class="small muted">المفتاح يُحفظ في هذا المتصفح فقط. تخزين الصور والصوت لن يعمل حتى يُضبط bucket خاص وسياسات الوصول في Supabase.</div>
+        <div class="small muted">المفتاح العام يُحفظ في هذا المتصفح فقط. لا تستخدم service_role. يجب إنشاء Bucket باسم memories وضبط سياسات Storage للسماح للمستخدم المسجّل برفع ملفاته.</div>
       </div>
     </div>
   </section>
@@ -215,9 +215,9 @@
 <footer><div class="wrap">NEGM MEMORIES · حكايتك، وذكرياتك، وحياتك<br><span>احتفظ بما يهمك، وشارك فقط ما تختاره.</span></div></footer>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getDatabase, ref, get, set, update, remove, push, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, ref, get, set, update, remove, push, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJ4C_cVK7JZtsg_YRPuqzBsrE9oGsxfyA",
@@ -242,7 +242,7 @@ const nowDate = () => new Date().toISOString().slice(0,10);
 $("memDate").value = nowDate();
 
 function toast(message,type=""){const el=document.createElement("div");el.className="toast "+type;el.textContent=message;$("toastbox").appendChild(el);setTimeout(()=>el.remove(),4200)}
-function errText(e){const c=e?.code||"";const map={"auth/popup-closed-by-user":"تم إغلاق نافذة Google قبل إكمال الدخول.","auth/cancelled-popup-request":"عملية الدخول أُلغيت.","auth/unauthorized-domain":"النطاق الحالي غير مضاف إلى النطاقات المصرّح بها في Firebase Authentication.","auth/network-request-failed":"تعذر الاتصال بالإنترنت. حاول مرة أخرى.","PERMISSION_DENIED":"قواعد قاعدة البيانات لا تسمح بالعملية المطلوبة.","storage":"تعذر رفع الملف إلى Supabase. راجع المفتاح العام وbucket والسياسات."};return map[c]||e?.message||"حدث خطأ غير متوقع."}
+function errText(e){const c=e?.code||"";const map={"auth/popup-closed-by-user":"تم إغلاق نافذة Google قبل إكمال الدخول.","auth/cancelled-popup-request":"عملية الدخول أُلغيت.","auth/unauthorized-domain":"النطاق الحالي غير مضاف إلى النطاقات المصرّح بها في Firebase Authentication.","auth/network-request-failed":"تعذر الاتصال بالإنترنت. حاول مرة أخرى.","auth/api-key-not-valid.-please-pass-a-valid-api-key.":"Firebase رفض مفتاح API. تأكد أن المفتاح الحالي من تطبيق الويب داخل مشروع zekrah-8b1fb، وأن قيود المفتاح في Google Cloud تسمح بنطاق الموقع.","PERMISSION_DENIED":"قواعد قاعدة البيانات لا تسمح بالعملية المطلوبة.","storage":"تعذر رفع الملف إلى Supabase. راجع المفتاح العام وbucket والسياسات."};return map[c]||e?.message||"حدث خطأ غير متوقع."}
 function esc(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function route(){const hash=location.hash.replace(/^#\/?/,"");if(hash.startsWith("memory/")){openMemoryRoute(hash.split("/")[1]);return}if(hash.startsWith("profile/")){openProfileRoute(hash.split("/")[1]);return}showView(hash||"home",false)}
 function showView(name,changeHash=true){if(!views.includes(name))name="home";state.currentView=name;views.forEach(v=>$("view-"+v)?.classList.toggle("hidden",v!==name));document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===name));if(changeHash){const h=name==="home"?"#home":"#"+name;if(location.hash!==h)history.pushState({view:name},"",h)}window.scrollTo({top:0,behavior:"smooth"});if(name==="explore")loadExplore();if(name==="dashboard")renderDashboard();if(name==="book")renderBook();if(name==="profile")renderOwnProfile();if(name==="settings")fillSettings()}
@@ -265,7 +265,25 @@ function renderBook(){const q=($("memorySearch").value||"").trim().toLowerCase()
 function renderPublicHome(){const list=$("homePublic");list.innerHTML=state.publicMemories.length?state.publicMemories.slice(0,3).map(m=>memoryCard(m,false)).join(""):'<div class="empty"><div class="big">✦</div><h3>لسه مفيش ذكريات عامة</h3><p>عندما يختار المستخدمون نشر ذكرياتهم، ستظهر هنا.</p></div>';bindMemoryButtons(list)}
 async function loadExplore(){await loadPublicMemories();const q=($("exploreSearch").value||"").trim().toLowerCase();const arr=state.publicMemories.filter(m=>(!q||((m.title||"")+" "+(m.body||"")+" "+(m.tags||"")).toLowerCase().includes(q)));$("exploreList").innerHTML=arr.length?arr.map(m=>memoryCard(m,false)).join(""):'<div class="empty"><div class="big">◇</div><h3>لا توجد ذكريات عامة مطابقة</h3><p>جرّب كلمة بحث مختلفة أو عُد لاحقًا.</p></div>';bindMemoryButtons($("exploreList"))}
 $("refreshExplore").addEventListener("click",loadExplore);$("exploreSearch").addEventListener("input",()=>{const q=$("exploreSearch").value.toLowerCase();const arr=state.publicMemories.filter(m=>((m.title||"")+" "+(m.body||"")+" "+(m.tags||"")).toLowerCase().includes(q));$("exploreList").innerHTML=arr.length?arr.map(m=>memoryCard(m,false)).join(""):'<div class="empty">لا توجد نتائج.</div>';bindMemoryButtons($("exploreList"))});["memorySearch","typeFilter","sortMemories"].forEach(id=>$(id).addEventListener("input",renderBook));
-async function uploadSupabase(file,folder){if(!state.supabaseKey)throw new Error("أدخل مفتاح Supabase العام من الإعدادات أولًا.");if(!state.user)throw new Error("سجّل الدخول أولًا.");if(!file)return null;const max=folder==="images"?8*1024*1024:15*1024*1024;if(file.size>max)throw new Error(folder==="images"?"حجم الصورة أكبر من 8MB.":"حجم الصوت أكبر من 15MB.");const allowed=folder==="images"?["image/jpeg","image/png","image/webp","image/gif"]:["audio/mpeg","audio/mp4","audio/aac","audio/wav","audio/ogg","audio/webm","audio/x-m4a"];if(!allowed.includes(file.type)&&!(folder==="audio"&&file.type.startsWith("audio/")))throw new Error("نوع الملف غير مسموح.");const ext=(file.name.split(".").pop()||"bin").replace(/[^a-zA-Z0-9]/g,"").slice(0,8);const path=`${state.user.uid}/${Date.now()}_${crypto.randomUUID()}.${ext}`;const response=await fetch(`${SUPABASE_URL}/storage/v1/object/memories/${path}`,{method:"POST",headers:{"apikey":state.supabaseKey,"Authorization":"Bearer "+state.supabaseKey,"Content-Type":file.type||"application/octet-stream","x-upsert":"false"},body:file});if(!response.ok){const t=await response.text();throw new Error("فشل رفع الملف إلى Supabase: "+t.slice(0,180)+" — راجع Bucket memories وسياسات INSERT.");}return `${SUPABASE_URL}/storage/v1/object/public/memories/${path}`}
+async function uploadSupabase(file,folder){
+  if(!state.supabaseKey)throw new Error("افتح الإعدادات وأضف مفتاح Supabase العام أولًا.");
+  if(!state.user)throw new Error("سجّل الدخول أولًا.");
+  if(!file)return null;
+  const isImage=folder==="images",max=isImage?8*1024*1024:15*1024*1024;
+  if(file.size>max)throw new Error(isImage?"حجم الصورة أكبر من 8MB.":"حجم الملف الصوتي أكبر من 15MB.");
+  if(isImage&&!(["image/jpeg","image/png","image/webp","image/gif"].includes(file.type)))throw new Error("صيغة الصورة غير مدعومة. استخدم JPG أو PNG أو WebP أو GIF.");
+  if(!isImage&&!file.type.startsWith("audio/"))throw new Error("اختَر ملفًا صوتيًا صالحًا.");
+  const safeName=(file.name.split(".").pop()|| (isImage?"jpg":"webm")).replace(/[^a-zA-Z0-9]/g,"").slice(0,8)|| (isImage?"jpg":"webm");
+  const randomId=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36);
+  const path=`${state.user.uid}/${Date.now()}_${randomId}.${safeName}`;
+  const response=await fetch(`${SUPABASE_URL}/storage/v1/object/memories/${path}`,{method:"POST",headers:{"apikey":state.supabaseKey,"Authorization":"Bearer "+state.supabaseKey,"Content-Type":file.type||"application/octet-stream","x-upsert":"false"},body:file});
+  if(!response.ok){let detail="";try{const data=await response.json();detail=data.message||data.error||data.error_description||""}catch{try{detail=(await response.text()).slice(0,180)}catch{}}
+    if(response.status===401||response.status===403)throw new Error("Supabase رفض الرفع. تأكد من المفتاح العام وسياسات Storage للمستخدم المسجّل.");
+    if(response.status===404)throw new Error("Bucket باسم memories غير موجود في Supabase Storage.");
+    throw new Error("فشل رفع الملف إلى Supabase ("+response.status+"). "+detail);
+  }
+  return `${SUPABASE_URL}/storage/v1/object/public/memories/${path}`;
+}
 $("supabaseForm").addEventListener("submit",e=>{e.preventDefault();state.supabaseKey=$("supabaseAnon").value.trim();localStorage.setItem("negm_supabase_public_key",state.supabaseKey);toast("تم حفظ المفتاح العام على هذا الجهاز","success")});
 $("memImage").addEventListener("change",()=>{const f=$("memImage").files[0];$("imagePreview").innerHTML="";if(!f)return;if(!f.type.startsWith("image/")||f.size>8*1024*1024){$("memImage").value="";return toast("اختر صورة صالحة أقل من 8MB","error")}const img=document.createElement("img");img.src=URL.createObjectURL(f);img.alt="معاينة الصورة";$("imagePreview").appendChild(img)});
 $("recordStart").addEventListener("click",async()=>{try{if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder)throw new Error("التسجيل الصوتي غير مدعوم في هذا المتصفح.");state.mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});state.chunks=[];state.recorder=new MediaRecorder(state.mediaStream);state.recorder.ondataavailable=e=>{if(e.data.size)state.chunks.push(e.data)};state.recorder.onstop=()=>{state.recordedBlob=new Blob(state.chunks,{type:state.recorder.mimeType||"audio/webm"});if(state.recordUrl)URL.revokeObjectURL(state.recordUrl);state.recordUrl=URL.createObjectURL(state.recordedBlob);$("audioPreview").src=state.recordUrl;$("audioPreview").classList.remove("hidden");$("recordState").textContent="تم تجهيز التسجيل. استمع إليه قبل الحفظ.";state.mediaStream?.getTracks().forEach(t=>t.stop());state.mediaStream=null};state.recorder.start();$("recordStart").disabled=true;$("recordStop").disabled=false;$("recordCancel").disabled=false;$("recordState").textContent="🔴 جارٍ التسجيل… اضغط إيقاف عند الانتهاء."}catch(e){toast(errText(e),"error")}});
@@ -295,7 +313,7 @@ $("exportData").addEventListener("click",async()=>{if(!state.user)return;try{awa
 $("logoutBtn").addEventListener("click",async()=>{try{await signOut(auth);state.memories=[];state.profile=null;toast("تم تسجيل الخروج","success");showView("home")}catch(e){toast(errText(e),"error")}});
 $("deleteRequest").addEventListener("click",()=>{$("deleteInfo").classList.remove("hidden");$("deleteInfo").textContent="للحذف الكامل الآمن: يجب إضافة Cloud Function أو خادم موثوق يتحقق من هوية المستخدم ثم يحذف ملفه وذكرياته وتعليقاته وإعجاباته وملفاته من Supabase. حذف الحساب من المتصفح وحده قد يترك بيانات وملفات يتيمة؛ لذلك لم ننفذ حذفًا مضللًا."});
 route();
-if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{});
 </script>
 </body>
 </html>
